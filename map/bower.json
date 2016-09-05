@@ -1,0 +1,9 @@
+{
+  "name": "react-flux-starter",
+  "version": "0.0.0",
+  "description": "",
+  "dependencies": {
+    "bootstrap-customize": ""
+  },
+  "devDependencies": {}
+}
