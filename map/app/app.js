@@ -1,11 +1,13 @@
 require('babel-core/polyfill');
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Router = require('react-router');
 var {Route, DefaultRoute, NotFoundRoute, RouteHandler} = Router;
 
 var Header = require('./components/Header');
 var Footer = require('./components/Footer');
+var AutocompleteInput = require('./components/AutocompleteInput');
 
 require('./bower_components/bootstrap/dist/css/bootstrap.css');
 require('./assets/styles/app.scss');
@@ -17,6 +19,7 @@ var App = React.createClass({
         <Header/>
         <main className='layout-main'>
           <div className='container'>
+            <AutocompleteInput/>
             <RouteHandler/>
           </div>
         </main>
@@ -50,7 +53,7 @@ function run() {
     if (document.body.className.indexOf('render') === -1) {
       document.body.className += document.body.className.length ? ' render' : 'render';
     }
-    React.render(<Handler/>, document.body);
+    ReactDOM.render(<Handler/>, document.body);
   });
 }
 
