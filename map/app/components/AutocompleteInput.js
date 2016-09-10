@@ -1,20 +1,15 @@
-var React = require('react');
-var Autocomplete = require('pui-react-autocomplete').Autocomplete;
 
-var AutocompleteInput = React.createClass({
+var Select = require('react-select');
 
-  onInitializeItems:function(callback) {
-    callback(['foo', 'food', 'bar']);
-  },
-  onPick: function(item) {
-    alert('You selected ' + item.value);
-  },
-  render: function() {
-    return (
-        <Autocomplete onInitializeItems={this.onInitializeItems} onPick={this.onPick}/>
-    );
-  }
-});
+
+var options = [
+  { value: 'one', label: 'One' },
+  { value: 'two', label: 'Two' }
+];
+
+function logChange(val) {
+  console.log("Selected: " + val);
+}
 
 
 module.exports = AutocompleteInput;

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "dependencies": {
-    "bootstrap-customize": ""
+    "bootstrap": "latest"
   },
   "devDependencies": {}
 }

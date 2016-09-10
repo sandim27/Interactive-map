@@ -3,23 +3,61 @@ require('babel-core/polyfill');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Router = require('react-router');
+var Firebase = require('firebase');
 var {Route, DefaultRoute, NotFoundRoute, RouteHandler} = Router;
 
 var Header = require('./components/Header');
 var Footer = require('./components/Footer');
-var AutocompleteInput = require('./components/AutocompleteInput');
+var LocationDescription = require('./components/LocationDescription');
+var GoogleMap = require('./components/GoogleMap');
+var Select = require('react-select');
+require('react-select/dist/react-select.css');
+
 
 require('./bower_components/bootstrap/dist/css/bootstrap.css');
 require('./assets/styles/app.scss');
 
+
+// Initialize Firebase
+var config = {
+  apiKey: 'AIzaSyCGpw7C2mlRmYuahQIZjpKeOVQ35Y_-Zfo',
+  authDomain: 'appmap-ad311.firebaseapp.com',
+  databaseURL: 'https://appmap-ad311.firebaseio.com',
+  storageBucket: 'appmap-ad311.appspot.com'
+};
+
+Firebase.initializeApp(config);
+var database = firebase.database();
+
+
+
 var App = React.createClass({
+  getInitialState: function() {
+    return {locations: [],
+    details:{}
+    };
+  },
+  LoadLocations:function () {
+    database.ref().once('value').then(function(data) {
+      this.setState({locations: data.val()});
+    }.bind(this));
+  },
+  GetLocation: function(val) {
+    this.setState({details: val});
+  },
+  componentDidMount: function() {
+    this.LoadLocations();
+  },
   render: function () {
     return (
       <div className='layout-page'>
         <Header/>
         <main className='layout-main'>
           <div className='container'>
-            <AutocompleteInput/>
+
+            <Select name='form-field-name' labelKey='name' options={this.state.locations} onChange={this.GetLocation} />
+            <LocationDescription details={this.state.details}/>
+            <GoogleMap/>
             <RouteHandler/>
           </div>
         </main>
